@@ -1,0 +1,2 @@
+g++ -c -L.\SFML-3.0.2\lib -I.\SFML-3.0.2\include main.cpp ConsoleEvent.cpp -DSFML_STATIC
+g++ main.o ConsoleEvent.o -o main -L.\SFML-3.0.2\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32
