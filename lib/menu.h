@@ -2,6 +2,9 @@
 #include <string>
 #include <Windows.h>
 #include <SFML/Graphics.hpp>
+#include <list>
+
+#include "event.h"
 
 struct Button {
     std::string buttonText;
@@ -9,10 +12,12 @@ struct Button {
 };
 
 struct Menu {
-    const UINT buttonListSize;
-    const Button *buttons;
-
     sf::RectangleShape background;
+    std::list<Button> buttons;
 };
 
 VOID RenderMenu(sf::RenderWindow&, Menu);
+
+VOID RenderButton(sf::RenderWindow&, Button);
+
+Menu GenerateTestMenu(float width, float height);
