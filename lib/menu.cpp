@@ -3,6 +3,7 @@
 VOID RenderButton(sf::RenderWindow& window, Button button)
 {
     window.draw(button.background); 
+    window.draw(button.text);
 };
 
 VOID RenderMenu(sf::RenderWindow& window, Menu menu) 
@@ -17,38 +18,75 @@ VOID RenderMenu(sf::RenderWindow& window, Menu menu)
     }
 };
 
+Button GenerateTestButton(
+    float xpos, float ypos, 
+    float width, float height, 
+    int textSize,
+    std::string textString, 
+    sf::Color textColor,
+    sf::Color buttonColor)
+{
+    // Button1
+    sf::Text buttonText(DEFAULT_BUTTON_FONT); // a font is required to make a text object
+    // set the string to display
+    buttonText.setString(textString);
+    // set the character size
+    buttonText.setCharacterSize(textSize); // in pixels, not points!
+    // set the color
+    buttonText.setFillColor(textColor);
+    // set the position
+    buttonText.setPosition({xpos, ypos});
+    // set the text style
+    buttonText.setStyle(sf::Text::Bold | sf::Text::Underlined);
+
+    sf::RectangleShape buttonRect = sf::RectangleShape({width,height});
+    buttonRect.setPosition({xpos,ypos});
+    buttonRect.setFillColor(buttonColor);
+
+    Button button = {
+        buttonText,
+        buttonRect
+    };
+
+    return button;    
+}
+
 Menu GenerateTestMenu(float width, float height)
 {
     Debug("Generating Test Menu...");
 
+    DEFAULT_BUTTON_FONT.openFromFile("myfont.ttf");
+
     sf::RectangleShape menuBackground({0,0});
     menuBackground.setSize({width, height});
-    menuBackground.setFillColor(sf::Color({50,50,50}));
+    menuBackground.setFillColor(sf::Color(50,50,50));
 
-    // Button1
-    sf::RectangleShape btn1Rect = sf::RectangleShape({100,100});
-    btn1Rect.setPosition({100.f,100.f});
-    btn1Rect.setFillColor(sf::Color(0,0,250));
-    Button btn1 = {
-        "Button 1", 
-        btn1Rect
-    };
-    // Button2
-    sf::RectangleShape btn2Rect = sf::RectangleShape({100,100});
-    btn2Rect.setPosition({100.f,200.f});
-    btn2Rect.setFillColor(sf::Color(0,250,0));
-    Button btn2 = {
-        "Button 2", 
-        btn2Rect
-    };
-    // Button3
-    sf::RectangleShape btn3Rect = sf::RectangleShape({100,100});
-    btn1Rect.setPosition({100.f,300.f});
-    btn2Rect.setFillColor(sf::Color(250,0,0));
-    Button btn3 = {
-        "Button 3", 
-        btn3Rect
-    };
+    Button btn1 = GenerateTestButton(
+        100,100,
+        200,100,
+        16,
+        "Btn1",
+        sf::Color::Black,
+        sf::Color::Red
+    );
+    
+    Button btn2 = GenerateTestButton(
+        100,200,
+        200,100,
+        16,
+        "Btn2",
+        sf::Color::Black,
+        sf::Color::Blue
+    );
+
+    Button btn3 = GenerateTestButton(
+        100,300,
+        200,100,
+        16,
+        "Btn3",
+        sf::Color::Black,
+        sf::Color::Green
+    );
 
     Debug("Menu");
     std::list<Button> menuBtns{btn1, btn2, btn3};

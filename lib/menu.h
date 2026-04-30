@@ -6,8 +6,10 @@
 
 #include "event.h"
 
+sf::Font DEFAULT_BUTTON_FONT;
+
 struct Button {
-    std::string buttonText;
+    sf::Text text;
     sf::RectangleShape background;
 };
 
